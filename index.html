@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Earn Your Break</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="card header">
+        <div class="brand">
+          <h1>Earn Your Break</h1>
+          <p id="signedState">Guest mode (data saved locally)</p>
+        </div>
+        <div class="header-actions">
+          <button id="navWork" class="btn nav active">Focus + Bank</button>
+          <button id="navInsights" class="btn nav">Insights</button>
+          <button id="navGuide" class="btn nav">How To Use</button>
+          <button id="profileBtn" class="btn ghost">Profile</button>
+          <button id="themeBtn" class="btn ghost">Theme</button>
+        </div>
+      </header>
+
+      <main>
+        <section id="workView" class="view">
+          <div class="tabs">
+            <button id="tabFocus" class="btn tab active">Focus</button>
+            <button id="tabBreak" class="btn tab">Break Bank</button>
+          </div>
+
+          <div class="card one-liner" id="oneLiner"></div>
+
+          <section id="focusPanel" class="card panel">
+            <h2>Focus</h2>
+            <div class="clock focus">
+              <div class="clock-inner">
+                <p class="clock-title">Active Focus</p>
+                <p id="focusTime" class="clock-time">00:00</p>
+                <p class="clock-sub">Break earned: <span id="earnedTime">00:00</span></p>
+              </div>
+            </div>
+            <div class="actions">
+              <button id="focusStartStop" class="btn primary big">Start</button>
+              <button id="focusReset" class="btn big">Reset</button>
+            </div>
+          </section>
+
+          <section id="breakPanel" class="card panel hidden">
+            <h2>Break Bank</h2>
+            <div id="bankLarge" class="bank-large positive">0:00</div>
+            <p class="bank-label">Break Bank</p>
+            <div class="clock break">
+              <div class="clock-inner">
+                <p class="clock-title">Active Break</p>
+                <p id="breakTime" class="clock-time">00:00</p>
+              </div>
+            </div>
+            <div class="actions">
+              <button id="breakStartStop" class="btn primary big">Start Break</button>
+              <button id="breakReset" class="btn big">Reset</button>
+            </div>
+            <p id="debtHint" class="debt-hint hidden"></p>
+          </section>
+
+          <section class="card">
+            <div class="bank-row">
+              <span>Break Bank</span>
+              <strong id="bankInline" class="positive">0:00</strong>
+            </div>
+            <div class="bank-track"><div id="bankFill" class="bank-fill"></div></div>
+          </section>
+
+          <section class="card">
+            <h3>Tasks</h3>
+            <div class="task-add">
+              <input id="taskInput" type="text" placeholder="Add a task" />
+              <button id="taskAddBtn" class="btn">+</button>
+            </div>
+            <ul id="taskList" class="task-list"></ul>
+          </section>
+
+          <section class="card settings">
+            <h3>Settings</h3>
+            <label for="cycleSelect">Work:Break Cycle</label>
+            <select id="cycleSelect">
+              <option value="1:5">1:5</option>
+              <option value="1:4">1:4</option>
+              <option value="1:3">1:3</option>
+              <option value="1:2">1:2</option>
+              <option value="1:1">1:1</option>
+            </select>
+            <small>Cycle cannot be changed while focus is running.</small>
+          </section>
+        </section>
+
+        <section id="insightsView" class="view hidden">
+          <div class="tabs">
+            <button id="dashTab" class="btn tab active">Dashboard</button>
+            <button id="aiTab" class="btn tab">AI Insights</button>
+          </div>
+
+          <div id="dashPanel">
+            <div class="metric-grid">
+              <article class="card metric"><h4>Today's productivity score</h4><p id="mScore"></p></article>
+              <article class="card metric"><h4>Day streak</h4><p id="mStreak"></p></article>
+              <article class="card metric"><h4>Focus today</h4><p id="mFocus"></p></article>
+              <article class="card metric"><h4>Sessions today</h4><p id="mSessions"></p></article>
+              <article class="card metric"><h4>Weekly overview</h4><p id="mWeekly"></p></article>
+            </div>
+            <article class="card">
+              <h4>Focus Heatmap (avg session every hour)</h4>
+              <div id="heatmap" class="heatmap"></div>
+            </article>
+            <article class="card">
+              <h4>Recent days</h4>
+              <div id="recentDays" class="recent"></div>
+            </article>
+          </div>
+
+          <div id="aiPanel" class="hidden">
+            <article class="card">
+              <h4>AI Productivity Coach</h4>
+              <div class="ai-hero">
+                <div>
+                  <p class="ai-kicker">Model summary</p>
+                  <p id="aiHeadline" class="ai-headline"></p>
+                </div>
+                <div class="ai-score-wrap">
+                  <span>Confidence</span>
+                  <strong id="aiConfidence" class="ai-score">0%</strong>
+                </div>
+              </div>
+              <div id="aiSignalGrid" class="ai-signal-grid"></div>
+              <div class="ai-evidence">
+                <h5>Data Evidence</h5>
+                <div id="aiEvidence" class="ai-evidence-list"></div>
+              </div>
+              <ul id="aiList" class="ai-list"></ul>
+            </article>
+          </div>
+        </section>
+
+        <section id="guideView" class="view hidden">
+          <article class="card guide-hero">
+            <p class="guide-kicker">Playbook</p>
+            <h3>How to Use This System and Stay Consistent</h3>
+            <p>
+              Treat this app like an energy wallet: focused work earns break time, and unplanned breaks spend it. Your goal is to stay in control, not just run a timer.
+            </p>
+          </article>
+
+          <section class="guide-grid">
+            <article class="card guide-step">
+              <span class="guide-step-no">01</span>
+              <h4>Set Your Cycle</h4>
+              <p>Pick your ratio first. Start with <strong>1:5</strong> for stricter execution, or <strong>1:3</strong> for balanced pace.</p>
+            </article>
+            <article class="card guide-step">
+              <span class="guide-step-no">02</span>
+              <h4>Run Focus Block</h4>
+              <p>Press <strong>Start</strong>, work on one task only, then press <strong>Stop &amp; Bank</strong> to convert focus into earned break.</p>
+            </article>
+            <article class="card guide-step">
+              <span class="guide-step-no">03</span>
+              <h4>Spend Break Intentionally</h4>
+              <p>Use <strong>Start Break</strong> only for intentional recovery. If bank goes negative, repay with focused work blocks.</p>
+            </article>
+            <article class="card guide-step">
+              <span class="guide-step-no">04</span>
+              <h4>Review AI Insights</h4>
+              <p>Check predicted focus, best cycle, and confidence daily. Use it to schedule deep work at your peak window.</p>
+            </article>
+          </section>
+
+          <article class="card guide-cheatsheet">
+            <h4>Cycle Cheat Sheet</h4>
+            <div class="guide-cycles">
+              <p><strong>1:5</strong><span>Strict execution for high-priority deep work</span></p>
+              <p><strong>1:4</strong><span>Strong pace with moderate recovery</span></p>
+              <p><strong>1:3</strong><span>Balanced default for most days</span></p>
+              <p><strong>1:2</strong><span>Recovery-friendly during low-energy windows</span></p>
+              <p><strong>1:1</strong><span>Sustainable mode when avoiding burnout</span></p>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
